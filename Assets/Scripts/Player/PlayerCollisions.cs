@@ -25,7 +25,9 @@ public class PlayerCollisions : MonoBehaviour
         if (other.tag == "Obstacle")
         {
             playerAnim.SetTrigger("kick");
+            CameraShake.shake(1f, 1f);
             other.GetComponent<Block>().CheckHit();
+            // BURAYA DUVAR KIRILDIĞINDA ÇALACAK SES EKLENECEK
         }
         if (other.tag == "Gate")
             other.GetComponent<Gate>().ExecuteOperation();
@@ -38,6 +40,8 @@ public class PlayerCollisions : MonoBehaviour
         if (other.tag == "Finish")
         {
             GameEvents.instance.gameWon.SetValueAndForceNotify(true);
+            // BURAYA OYUN BİTİNCE ÇALACAK SES EKLENECEK
+
         }
     }
 }
