@@ -25,13 +25,12 @@ public class PanelTweenManager : MonoBehaviour
     }
 
     void SettingsPanelTweenOn(){
-        LeanTween.scale(TweenPanelOn,new Vector3(0.8630372f,0.7176021f,0.5596436f), 0.3f).setEaseInExpo();
+        LeanTween.scale(TweenPanelOn,new Vector3(1f,0.75f,0.25f), 0.3f).setEaseInExpo();
         // Vector3(0.863037229,0.717602074,0.559643626) 
     }
     void SettingsPanelTweenOff(){
         LeanTween.scale(TweenPanelOff,new Vector3(0f,0f,0f), 0.2f).setEaseOutExpo();
     }
-
     IEnumerator WaitSecond(float wait){
         yield return new WaitForSeconds(wait);
     }

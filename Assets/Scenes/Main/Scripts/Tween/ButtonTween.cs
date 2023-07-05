@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PanelsTween : MonoBehaviour
 {
-    [Header("Button Panels")]
-    [SerializeField] private GameObject RightPanel, TopPanel, BottomPanel;
+    // [Header("Button Panels")]
+    // [SerializeField] private GameObject RightPanel, TopPanel, BottomPanel;
 
     void Start()
     {
