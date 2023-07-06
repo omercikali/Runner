@@ -13,7 +13,7 @@ public class PlayerCollisions : MonoBehaviour
 
     private void Start()
     {
-       // PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         Debug.Log("Coinplayerprefz" + PlayerPrefs.GetInt("Coin"));
         playerPos = GameObject.FindGameObjectWithTag("Player");
         gateBool = false;
@@ -32,7 +32,6 @@ public class PlayerCollisions : MonoBehaviour
         if (other.tag == "checkbool")
         {
             gateBool = true;
-            
         }
       
         if (other.tag == "Size")
@@ -50,17 +49,13 @@ public class PlayerCollisions : MonoBehaviour
             other.GetComponent<Block>().CheckHit();
             CameraShake.shake(1f, 1f);
             Debug.Log("coin:"+coin);
-          
         }
 
         else if(other.tag == "Obstacle" && gateBool == true)
         {
-         
-
-                coin *= 2;
+            coin *= 2;
             other.GetComponent<Block>().finish11(coin);
             Debug.Log("coin:" + coin);
-
         }
        
         if (other.tag == "tekme")
@@ -68,11 +63,8 @@ public class PlayerCollisions : MonoBehaviour
             playerAnim.SetTrigger("kick1");
         }
 
-
         if (other.tag == "Gate")
             other.GetComponent<Gate>().ExecuteOperation();
-
-
 
         if (other.tag == "Saw")
         {
@@ -84,8 +76,6 @@ public class PlayerCollisions : MonoBehaviour
         if (other.tag == "Finish")
         {
             GameEvents.instance.gameWon.SetValueAndForceNotify(true);
-          
-
         }
     }
 }

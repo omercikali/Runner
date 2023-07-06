@@ -53,8 +53,6 @@ public class Block : MonoBehaviour
         Debug.Log("Coin view: " + coin);
         if (GameEvents.instance.playerSize.Value > startingSize)
         {
-
-         
             ParticleManager.instance.PlayParticle(0, transform.position);
             GameEvents.instance.playerSize.Value -= startingSize;
             completeBlock.SetActive(false);
@@ -63,10 +61,7 @@ public class Block : MonoBehaviour
             Debug.Log("Coin view inside if: " + coin);
 
         }
-       
-        else
-        {
-           
+        else{
             coin /= 2;
             Debug.Log("Coin view outside if: " + coin);
             PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + coin) ;
