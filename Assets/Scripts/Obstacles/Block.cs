@@ -50,7 +50,7 @@ public class Block : MonoBehaviour
     public void finish11(int coin)
     {
         Camera.main.transform.DOShakePosition(0.1f, 0.5f, 5);
-
+        Debug.Log("Coin view: " + coin);
         if (GameEvents.instance.playerSize.Value > startingSize)
         {
 
@@ -59,16 +59,17 @@ public class Block : MonoBehaviour
             GameEvents.instance.playerSize.Value -= startingSize;
             completeBlock.SetActive(false);
             brokenBlock.SetActive(true);
-           
-
             blockSizeText.gameObject.SetActive(false);
-          
+            Debug.Log("Coin view inside if: " + coin);
 
         }
        
         else
         {
-          //  PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + coin);
+           
+            coin /= 2;
+            Debug.Log("Coin view outside if: " + coin);
+            PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + coin) ;
 
             GameEvents.instance.gameWon.SetValueAndForceNotify(true);
         }
