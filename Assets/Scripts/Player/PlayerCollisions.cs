@@ -17,6 +17,13 @@ public class PlayerCollisions : MonoBehaviour
         Debug.Log("Coinplayerprefz" + PlayerPrefs.GetInt("Coin"));
         playerPos = GameObject.FindGameObjectWithTag("Player");
         gateBool = false;
+        float repeatRate = 1.3f; // Tekrarlama süresi (saniye cinsinden)
+        InvokeRepeating("getAnim", 0.0f, repeatRate);
+        
+    }
+    void getAnim()
+    {
+        playerAnim.SetInteger("AttackIndex", Random.Range(0, 4));
     }
     private void Awake()
     {
@@ -25,7 +32,7 @@ public class PlayerCollisions : MonoBehaviour
     }
     private void Update()
     {
-        playerAnim.SetInteger("AttackIndex", Random.Range(0, 4));
+       
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -54,7 +61,7 @@ public class PlayerCollisions : MonoBehaviour
         else if(other.tag == "Obstacle" && gateBool == true)
         {
             coin *= 2;
-            other.GetComponent<Block>().finish11(coin);
+            other.GetComponent<Block>().finishExtra(coin);
             Debug.Log("coin:" + coin);
         }
        

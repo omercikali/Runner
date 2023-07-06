@@ -1,12 +1,14 @@
 ﻿using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class Block : MonoBehaviour
 {
     [Header ("Size & Color")]
     [SerializeField] private int startingSize;
     [SerializeField] private Material[] blockColor;
+    public Text t1;
     [SerializeField] private MeshRenderer blockMesh;
 
     [Header("References")]
@@ -47,7 +49,7 @@ public class Block : MonoBehaviour
             GameEvents.instance.gameLost.SetValueAndForceNotify(true);
         }
     }
-    public void finish11(int coin)
+    public void finishExtra(int coin)
     {
         Camera.main.transform.DOShakePosition(0.1f, 0.5f, 5);
         Debug.Log("Coin view: " + coin);
