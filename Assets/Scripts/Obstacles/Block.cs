@@ -31,10 +31,7 @@ public class Block : MonoBehaviour
 
     public void CheckHit()
     {
-<<<<<<< HEAD
-        //Handheld.Vibrate();
-=======
->>>>>>> 806de3b439e8d37eccbe315c86eae0551dc7faf8
+
         Camera.main.transform.DOShakePosition(0.1f, 0.5f, 5);
 
         if (GameEvents.instance.playerSize.Value > startingSize)
@@ -48,6 +45,24 @@ public class Block : MonoBehaviour
         else
         {
             GameEvents.instance.gameLost.SetValueAndForceNotify(true);
+        }
+    }
+    public void finish11()
+    {
+
+        Camera.main.transform.DOShakePosition(0.1f, 0.5f, 5);
+
+        if (GameEvents.instance.playerSize.Value > startingSize)
+        {
+            ParticleManager.instance.PlayParticle(0, transform.position);
+            GameEvents.instance.playerSize.Value -= startingSize;
+            completeBlock.SetActive(false);
+            brokenBlock.SetActive(true);
+            blockSizeText.gameObject.SetActive(false);
+        }
+        else
+        {
+            GameEvents.instance.gameWon.SetValueAndForceNotify(true);
         }
     }
 }
