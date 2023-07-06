@@ -7,11 +7,14 @@ public class PlayerCollisions : MonoBehaviour
     [SerializeField] private GameObject finishCollider;
     [SerializeField] private GameObject playerPos;
     private Animator playerAnim;
-
+    private int coin;
+   
     public static bool gateBool;
 
     private void Start()
     {
+       // PlayerPrefs.DeleteAll();
+        Debug.Log("Coinplayerprefz" + PlayerPrefs.GetInt("Coin"));
         playerPos = GameObject.FindGameObjectWithTag("Player");
         gateBool = false;
     }
@@ -43,33 +46,41 @@ public class PlayerCollisions : MonoBehaviour
         }
         if (other.tag == "Obstacle" && gateBool == false)
         {
-           
+            coin += 1;
             other.GetComponent<Block>().CheckHit();
             CameraShake.shake(1f, 1f);
+            Debug.Log("coin:"+coin);
           
         }
 
         else if(other.tag == "Obstacle" && gateBool == true)
         {
-            other.GetComponent<Block>().finish11();
+         
+
+                coin *= 2;
+            other.GetComponent<Block>().finish11(coin);
+            Debug.Log("coin:" + coin);
 
         }
        
         if (other.tag == "tekme")
         {
             playerAnim.SetTrigger("kick1");
-           
-
-          
         }
+
+
         if (other.tag == "Gate")
             other.GetComponent<Gate>().ExecuteOperation();
+
+
+
         if (other.tag == "Saw")
         {
             GameEvents.instance.gameLost.SetValueAndForceNotify(true);
             bloodParticles.SetActive(true);
             GetComponent<Collider>().enabled = false;
         }
+
         if (other.tag == "Finish")
         {
             GameEvents.instance.gameWon.SetValueAndForceNotify(true);

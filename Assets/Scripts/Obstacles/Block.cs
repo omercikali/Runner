@@ -13,7 +13,7 @@ public class Block : MonoBehaviour
     [SerializeField] private GameObject completeBlock;
     [SerializeField] private GameObject brokenBlock;
     [SerializeField] private TextMeshPro blockSizeText;
-
+   
     private void Awake()
     {
         completeBlock.SetActive(true);
@@ -47,21 +47,29 @@ public class Block : MonoBehaviour
             GameEvents.instance.gameLost.SetValueAndForceNotify(true);
         }
     }
-    public void finish11()
+    public void finish11(int coin)
     {
-
         Camera.main.transform.DOShakePosition(0.1f, 0.5f, 5);
 
         if (GameEvents.instance.playerSize.Value > startingSize)
         {
+
+         
             ParticleManager.instance.PlayParticle(0, transform.position);
             GameEvents.instance.playerSize.Value -= startingSize;
             completeBlock.SetActive(false);
             brokenBlock.SetActive(true);
+           
+
             blockSizeText.gameObject.SetActive(false);
+          
+
         }
+       
         else
         {
+          //  PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + coin);
+
             GameEvents.instance.gameWon.SetValueAndForceNotify(true);
         }
     }
