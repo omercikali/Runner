@@ -31,7 +31,10 @@ public class Block : MonoBehaviour
 
     public void CheckHit()
     {
+<<<<<<< HEAD
         //Handheld.Vibrate();
+=======
+>>>>>>> 806de3b439e8d37eccbe315c86eae0551dc7faf8
         Camera.main.transform.DOShakePosition(0.1f, 0.5f, 5);
 
         if (GameEvents.instance.playerSize.Value > startingSize)
