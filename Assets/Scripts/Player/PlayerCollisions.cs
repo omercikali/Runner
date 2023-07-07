@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using UnityEditor.Rendering.LookDev;
+using UnityEngine.UI;
 
 public class PlayerCollisions : MonoBehaviour
 {
@@ -8,16 +10,18 @@ public class PlayerCollisions : MonoBehaviour
     [SerializeField] private GameObject playerPos;
     private Animator playerAnim;
     private int coin;
-   
+    private Text CoinText;
+
     public static bool gateBool;
 
     private void Start()
     {
+        CoinText = GameObject.Find("CoinText").GetComponent<Text>();
         //PlayerPrefs.DeleteAll();
         Debug.Log("Coinplayerprefz" + PlayerPrefs.GetInt("Coin"));
         playerPos = GameObject.FindGameObjectWithTag("Player");
         gateBool = false;
-        float repeatRate = 1.3f; // Tekrarlama süresi (saniye cinsinden)
+        float repeatRate = 2f; // Tekrarlama süresi (saniye cinsinden)
         InvokeRepeating("getAnim", 0.0f, repeatRate);
         
     }
@@ -53,6 +57,7 @@ public class PlayerCollisions : MonoBehaviour
         if (other.tag == "Obstacle" && gateBool == false)
         {
             coin += 1;
+            CoinText.text = "Coin: " + coin;
             other.GetComponent<Block>().CheckHit();
             CameraShake.shake(1f, 1f);
             Debug.Log("coin:"+coin);
