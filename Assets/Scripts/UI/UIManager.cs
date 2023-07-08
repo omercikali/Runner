@@ -1,7 +1,8 @@
-﻿using UniRx;
+﻿using System.Collections;
+using UniRx;
 using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -32,8 +33,17 @@ public class UIManager : MonoBehaviour
         GameEvents.instance.gameWon.ObserveEveryValueChanged(x => x.Value)
             .Subscribe(value =>
             {
+                // WIN UI
                 if (value)
-                    ActivateMenu(winUI);
+                    StartCoroutine(WaitWinUI());
+                    IEnumerator WaitWinUI()
+                    {
+                        yield return new WaitForSeconds(2);
+                        ActivateMenu(winUI);
+                         winUI.transform.DOScale(new Vector3(.67f, .67f, .67f), 1f).SetEase(Ease.OutElastic);
+                         // REKLAM EKLENECEK
+
+                     }
             })
             .AddTo(subscriptions);
 
@@ -41,10 +51,17 @@ public class UIManager : MonoBehaviour
             .Subscribe(value =>
             {
                 if (value)
-                    ActivateMenu(loseUI);
+                    StartCoroutine(WaitLouseUI());
+                    IEnumerator WaitLouseUI()
+                    {
+                        yield return new WaitForSeconds(2);
+                        ActivateMenu(loseUI);
+                        loseUI.transform.DOScale(new Vector3(.67f, .67f, .67f), 1f).SetEase(Ease.OutElastic);
+                    }
             })
             .AddTo(subscriptions);
     }
+    
     private void OnDisable()
     {
         subscriptions.Clear();
@@ -67,19 +84,35 @@ public class UIManager : MonoBehaviour
     }
     public void NextLevel()
     {
-        int newCurrentLevel = PlayerPrefs.GetInt("currentLevel", 1) + 1;
-        int newLoadingLevel = PlayerPrefs.GetInt("loadingLevel", 1) + 1;
+        //int newCurrentLevel = PlayerPrefs.GetInt("currentLevel", 1) + 1;
+        //int newLoadingLevel = PlayerPrefs.GetInt("loadingLevel", 1) + 1;
 
-        if (newLoadingLevel >= SceneManager.sceneCountInBuildSettings)
-            newLoadingLevel = 1;
+        //if (newLoadingLevel >= SceneManager.sceneCountInBuildSettings)
+        //    newLoadingLevel = 1;
 
-        PlayerPrefs.SetInt("currentLevel", newCurrentLevel);
-        PlayerPrefs.SetInt("loadingLevel", newLoadingLevel);
+        //PlayerPrefs.SetInt("currentLevel", newCurrentLevel);
+        //PlayerPrefs.SetInt("loadingLevel", newLoadingLevel);
 
-        SceneManager.LoadScene(newLoadingLevel);
+        //SceneManager.LoadScene(newLoadingLevel);
+      
+            int activeScene = SceneManager.GetActiveScene().buildIndex;
+          if (activeScene >= PlayerPrefs.GetInt("Levels"))
+        {
+            PlayerPrefs.SetInt("Levels", activeScene + 1);
+            SceneManager.LoadScene(activeScene + 1); ;
+
+
+
+        }
+        else
+        {
+            SceneManager.LoadScene(activeScene + 1); ;
+
+        }
     }
     public void HomeLevel()
     {
         SceneManager.LoadScene("Main");
     }
+
 }
