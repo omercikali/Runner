@@ -9,6 +9,8 @@ TagManager:
   - Saw
   - Water
   - tekme
+  - Gate
+  - checkbool
   layers:
   - Default
   - TransparentFX

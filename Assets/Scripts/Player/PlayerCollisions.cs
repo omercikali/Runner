@@ -1,11 +1,35 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using UnityEditor.Rendering.LookDev;
+using UnityEngine.UI;
 
 public class PlayerCollisions : MonoBehaviour
 {
     [SerializeField] private GameObject bloodParticles;
+    [SerializeField] private GameObject finishCollider;
+    [SerializeField] private GameObject playerPos;
+    [SerializeField] private GameObject pauseMenuButton;
     private Animator playerAnim;
+    private int coin;
+    private Text CoinText;
 
+    public static bool gateBool;
+
+    private void Start()
+    {
+        CoinText = GameObject.Find("CoinText").GetComponent<Text>();
+        //PlayerPrefs.DeleteAll();
+        Debug.Log("Coinplayerprefz" + PlayerPrefs.GetInt("Coin"));
+        playerPos = GameObject.FindGameObjectWithTag("Player");
+        gateBool = false;
+        float repeatRate = 2f; // Tekrarlama süresi (saniye cinsinden)
+        InvokeRepeating("getAnim", 0.0f, repeatRate);
+        
+    }
+    void getAnim()
+    {
+        playerAnim.SetInteger("AttackIndex", Random.Range(0, 4));
+    }
     private void Awake()
     {
         playerAnim = GetComponent<Animator>();
@@ -13,10 +37,16 @@ public class PlayerCollisions : MonoBehaviour
     }
     private void Update()
     {
-        playerAnim.SetInteger("AttackIndex", Random.Range(0, 4));
+       
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "checkbool")
+        {
+            gateBool = true;
+            pauseMenuButton.SetActive(false);
+        }
+
         if (other.tag == "Size")
         {
             GameEvents.instance.playerSize.Value += 1;
@@ -26,34 +56,38 @@ public class PlayerCollisions : MonoBehaviour
                 Destroy(other.gameObject);
             });
         }
-        if (other.tag == "Obstacle")
+        if (other.tag == "Obstacle" && gateBool == false)
         {
-            //playerAnim.SetTrigger("kick1");
-            //CameraShake.shake(1f, 1f);
+            coin += 1;
+            CoinText.text = "" + coin;
             other.GetComponent<Block>().CheckHit();
             CameraShake.shake(1f, 1f);
-            // BURAYA DUVAR KIRILDIĞINDA ÇALACAK SES EKLENECEK
         }
+
+        else if(other.tag == "Obstacle" && gateBool == true)
+        {
+            coin *= 2;
+            other.GetComponent<Block>().finishExtra(coin);
+        }
+       
         if (other.tag == "tekme")
         {
             playerAnim.SetTrigger("kick1");
-           
-
-            // BURAYA DUVAR KIRILDIĞINDA ÇALACAK SES EKLENECEK
         }
+
         if (other.tag == "Gate")
             other.GetComponent<Gate>().ExecuteOperation();
+
         if (other.tag == "Saw")
         {
             GameEvents.instance.gameLost.SetValueAndForceNotify(true);
             bloodParticles.SetActive(true);
             GetComponent<Collider>().enabled = false;
         }
+
         if (other.tag == "Finish")
         {
             GameEvents.instance.gameWon.SetValueAndForceNotify(true);
-            // BURAYA OYUN BİTİNCE ÇALACAK SES EKLENECEK
-
         }
     }
 }
