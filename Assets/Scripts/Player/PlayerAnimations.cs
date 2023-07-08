@@ -40,7 +40,7 @@ public class PlayerAnimations : MonoBehaviour
             .Subscribe(value =>
             {
                 if (value)
-                    anim.SetTrigger("win");     
+                    anim.SetTrigger("win");
             })
             .AddTo(subscriptions);
     }

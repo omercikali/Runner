@@ -2,7 +2,6 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using System.Collections;
 
 public class Block : MonoBehaviour
 {
@@ -79,16 +78,9 @@ public class Block : MonoBehaviour
             coin /= 2;
             Debug.Log("Coin view outside if: " + coin);
              CoinText.text = "" + coin;
-
             PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + coin);
+
             GameEvents.instance.gameWon.SetValueAndForceNotify(true);
-           
-          
         }
-
     }
-
-    
-   
-
 }

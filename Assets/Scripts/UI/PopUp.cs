@@ -7,7 +7,7 @@ public class PopUp : MonoBehaviour
 
     private void Awake()
     {
-    //    transform.localScale = Vector3.zero;
-    //    transform.DOScale(Vector3.one, 1).SetDelay(delay);
+        transform.localScale = Vector3.zero;
+        transform.DOScale(Vector3.one, 1).SetDelay(delay);
     }
 }
