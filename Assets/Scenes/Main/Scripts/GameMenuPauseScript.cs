@@ -7,6 +7,13 @@ public class GameMenuPauseScript : MonoBehaviour
     [SerializeField] private GameObject menuObject;
     [SerializeField] private bool visibilityControl = false;
 
+    private void Start()
+    {
+        menuObject.SetActive(false);
+    }
+
+
+
     void Update()
     {
         if(menuObject.activeInHierarchy){
@@ -22,8 +29,6 @@ public class GameMenuPauseScript : MonoBehaviour
             TimeScale1();
         }
     }
-
-
 
     private void TimeScale0(){
             Time.timeScale = 0;

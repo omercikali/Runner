@@ -8,6 +8,7 @@ public class PlayerCollisions : MonoBehaviour
     [SerializeField] private GameObject bloodParticles;
     [SerializeField] private GameObject finishCollider;
     [SerializeField] private GameObject playerPos;
+    [SerializeField] private GameObject pauseMenuButton;
     private Animator playerAnim;
     private int coin;
     private Text CoinText;
@@ -43,8 +44,9 @@ public class PlayerCollisions : MonoBehaviour
         if (other.tag == "checkbool")
         {
             gateBool = true;
+            pauseMenuButton.SetActive(false);
         }
-      
+
         if (other.tag == "Size")
         {
             GameEvents.instance.playerSize.Value += 1;
@@ -57,17 +59,15 @@ public class PlayerCollisions : MonoBehaviour
         if (other.tag == "Obstacle" && gateBool == false)
         {
             coin += 1;
-            CoinText.text = "Coin: " + coin;
+            CoinText.text = "" + coin;
             other.GetComponent<Block>().CheckHit();
             CameraShake.shake(1f, 1f);
-            Debug.Log("coin:"+coin);
         }
 
         else if(other.tag == "Obstacle" && gateBool == true)
         {
             coin *= 2;
             other.GetComponent<Block>().finishExtra(coin);
-            Debug.Log("coin:" + coin);
         }
        
         if (other.tag == "tekme")

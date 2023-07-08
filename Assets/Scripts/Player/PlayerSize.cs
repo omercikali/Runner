@@ -20,12 +20,12 @@ public class PlayerSize : MonoBehaviour
         GameEvents.instance.playerSize.ObserveEveryValueChanged(x => x.Value)
             .Subscribe(value =>
             {
-                float size = 1 + (value - 1) * 0.1f;
+                float size = 1f + (value - 1) * 0.05f;
 
                 if (size != currentSize)
                 {
                     sizeText.text = value.ToString();
-                    sizeText.transform.parent.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.25f);
+                    sizeText.transform.parent.DOPunchScale(new Vector3(0.001f, 0.001f, 0.001f), 0.25f);
                     transform.GetChild(0).DOScale(new Vector3(size, size, size), 0.5f).SetEase(Ease.OutBack);
                     currentSize = size;
                 }

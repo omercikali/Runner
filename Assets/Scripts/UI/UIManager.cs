@@ -78,4 +78,8 @@ public class UIManager : MonoBehaviour
 
         SceneManager.LoadScene(newLoadingLevel);
     }
+    public void HomeLevel()
+    {
+        SceneManager.LoadScene("Main");
+    }
 }

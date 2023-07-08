@@ -20,7 +20,7 @@ public class Block : MonoBehaviour
     {
         
         CoinText = GameObject.Find("CoinText").GetComponent<Text>();
-       
+
     }
     private void Awake()
     {
@@ -69,15 +69,16 @@ public class Block : MonoBehaviour
             completeBlock.SetActive(false);
             brokenBlock.SetActive(true);
             blockSizeText.gameObject.SetActive(false);
-            CoinText.text = "Coin: " + coin;
+            CoinText.text = "" + coin;
+            CoinText.transform.DOShakeScale(0.5f, 0.1f, 2, 0);
             Debug.Log("Coin view inside if: " + coin);
 
         }
         else{
             coin /= 2;
             Debug.Log("Coin view outside if: " + coin);
-             CoinText.text = "Coin: " + coin;
-            PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + coin) ;
+             CoinText.text = "" + coin;
+            PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + coin);
 
             GameEvents.instance.gameWon.SetValueAndForceNotify(true);
         }
