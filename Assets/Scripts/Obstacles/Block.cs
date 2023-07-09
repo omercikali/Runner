@@ -70,14 +70,13 @@ public class Block : MonoBehaviour
             CoinText.text = "" + coin;
             CoinText.transform.DOShakeScale(0.5f, 0.1f, 2, 0);
             Debug.Log("Coin view inside if: " + coin);
-
         }
         else{
             coin /= 2;
             Debug.Log("Coin view outside if: " + coin);
              CoinText.text = "" + coin;
             PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + coin);
-
+            // GAME WON
             GameEvents.instance.gameWon.SetValueAndForceNotify(true);
         }
     }

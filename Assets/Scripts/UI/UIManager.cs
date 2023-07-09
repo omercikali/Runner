@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,8 +15,6 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(Subscribe());
-        gameUI.SetActive(true);
-        startUI.SetActive(true);
     }
     private IEnumerator Subscribe()
     {
@@ -33,7 +32,7 @@ public class UIManager : MonoBehaviour
             .Subscribe(value =>
             {
                 if (value)
-                    ActivateMenu(winUI);
+                    StartCoroutine(WaitAndActivate(winUI, 3f));
             })
             .AddTo(subscriptions);
 
@@ -41,10 +40,21 @@ public class UIManager : MonoBehaviour
             .Subscribe(value =>
             {
                 if (value)
-                    ActivateMenu(loseUI);
+                    StartCoroutine(WaitAndActivate(loseUI, 3f));
+                    
             })
             .AddTo(subscriptions);
     }
+
+    private IEnumerator WaitAndActivate(GameObject _menu, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        ActivateMenu(_menu);
+        // WIN VE LOSE UI ANIMATION
+        _menu.transform.DOScale(new Vector3(0.6789026f, 0.6789026f, 0.6789026f), 0.7f)
+            .SetEase(Ease.OutCubic);
+    }
+
     private void OnDisable()
     {
         subscriptions.Clear();
@@ -52,12 +62,10 @@ public class UIManager : MonoBehaviour
 
     private void ActivateMenu(GameObject _menu)
     {
-        gameUI.SetActive(false);
-        startUI.SetActive(false);
-        winUI.SetActive(false);
-        loseUI.SetActive(false);
-
-        _menu.SetActive(true);
+        gameUI.SetActive(_menu == gameUI);
+        startUI.SetActive(_menu == startUI);
+        winUI.SetActive(_menu == winUI);
+        loseUI.SetActive(_menu == loseUI);
     }
 
     //Level functions
@@ -82,4 +90,7 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Main");
     }
+
+
+ 
 }

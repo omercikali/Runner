@@ -1,37 +1,39 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PanelTweenManager : MonoBehaviour
 {
-    [SerializeField] private GameObject TweenPanelOn;
-    [SerializeField] private GameObject TweenPanelOff;
-    [SerializeField] private GameObject Panel;
+    [SerializeField] private GameObject panel;
 
-    public void OpenPanel(){
-        if(Panel != null){
-            Panel.SetActive(true);
+    public void OpenPanel()
+    {
+        if (panel != null)
+        {
+            panel.SetActive(true);
             SettingsPanelTweenOn();
         }
     }
-    public void ClosePanel(){
-        if(Panel != null){
+
+    public void ClosePanel()
+    {
+        if (panel != null)
+        {
             SettingsPanelTweenOff();
-            WaitSecond(1f);
-            if(!LeanTween.isTweening(TweenPanelOff)){
-                Panel.SetActive(false);
-            }
+            //StartCoroutine(WaitAndClosePanel(1f));
         }
     }
 
-    void SettingsPanelTweenOn(){
-        LeanTween.scale(TweenPanelOn,new Vector3(1f,0.75f,0.25f), 0.3f).setEaseInExpo();
+    void SettingsPanelTweenOn()
+    {
+        panel.transform.DOScale(new Vector3(0.95f, 0.7125f, 0.25f), 0.7f).SetEase(Ease.InExpo);
         // Vector3(0.863037229,0.717602074,0.559643626) 
     }
-    void SettingsPanelTweenOff(){
-        LeanTween.scale(TweenPanelOff,new Vector3(0f,0f,0f), 0.2f).setEaseOutExpo();
+
+    void SettingsPanelTweenOff()
+    {
+        panel.transform.DOScale(Vector3.zero, 0.6f).SetEase(Ease.OutExpo);
     }
-    IEnumerator WaitSecond(float wait){
-        yield return new WaitForSeconds(wait);
-    }
-}   
+
+
+}
