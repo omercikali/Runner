@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEditor.Rendering.LookDev;
+
 
 namespace PathCreation.Examples
 {
@@ -7,7 +9,7 @@ namespace PathCreation.Examples
         public float pathProgress { get; private set; }
         public PathCreator pathCreator;
         public EndOfPathInstruction endOfPathInstruction;
-        public float speed = 5;
+        public static float speed = 3;
         private float distanceTravelled;
 
         private void Start()

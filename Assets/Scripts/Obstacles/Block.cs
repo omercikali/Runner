@@ -16,6 +16,7 @@ public class Block : MonoBehaviour
     [SerializeField] private GameObject completeBlock;
     [SerializeField] private GameObject brokenBlock;
     [SerializeField] private TextMeshPro blockSizeText;
+
     private void Start()
     {
         
@@ -26,7 +27,6 @@ public class Block : MonoBehaviour
     {
         completeBlock.SetActive(true);
         brokenBlock.SetActive(false);
-        
         blockSizeText.text = startingSize.ToString();
         AssignColor();
     }
@@ -45,8 +45,6 @@ public class Block : MonoBehaviour
 
         if (GameEvents.instance.playerSize.Value > startingSize)
         {
-          
-
             ParticleManager.instance.PlayParticle(0, transform.position);
             GameEvents.instance.playerSize.Value -= startingSize;
             completeBlock.SetActive(false);

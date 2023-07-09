@@ -27,25 +27,24 @@ public class PlayerAnimations : MonoBehaviour
             })
             .AddTo(subscriptions);
 
-
         GameEvents.instance.gameLost.ObserveEveryValueChanged(x => x.Value)
-            .Subscribe(value =>
+            .Where(value => value)
+            .Subscribe(_ =>
             {
-                if(value)
-                    anim.SetTrigger("die");
+                anim.SetTrigger("die");
             })
             .AddTo(subscriptions);
 
         GameEvents.instance.gameWon.ObserveEveryValueChanged(x => x.Value)
-            .Subscribe(value =>
+            .Where(value => value)
+            .Subscribe(_ =>
             {
-                if (value)
-                    anim.SetTrigger("win");
+                anim.SetTrigger("win");
             })
             .AddTo(subscriptions);
     }
     private void OnDisable()
     {
-        subscriptions.Clear();
+        subscriptions.Clear(); 
     }
 }

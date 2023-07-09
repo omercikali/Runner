@@ -15,6 +15,6 @@ public class CameraHolder : MonoBehaviour
         transform.position = new Vector3(player.position.x, player.position.y, player.position.z);
 
         if (GameEvents.instance.gameWon.Value || GameEvents.instance.gameLost.Value) return;
-        transform.eulerAngles = new Vector3(player.eulerAngles.x + initRotation.x, player.eulerAngles.y + initRotation.y, 0);
+        //transform.eulerAngles = new Vector3(player.eulerAngles.x + initRotation.x, player.eulerAngles.y + initRotation.y, 0);
     }
 }
