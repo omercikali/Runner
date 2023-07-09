@@ -1,12 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadSceneManager : MonoBehaviour
 {
-	public void ChangeScene(string sceneName)
+	public void ChangeScene()
 	{
-		SceneManager.LoadScene(sceneName);
-	}
+		int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+		if (PlayerPrefs.GetInt("Levels")>1 ) 
+		{
+            SceneManager.LoadScene(PlayerPrefs.GetInt("Levels"));
+        }
+        else SceneManager.LoadScene(2);
+
+
+
+
+    }
 }
