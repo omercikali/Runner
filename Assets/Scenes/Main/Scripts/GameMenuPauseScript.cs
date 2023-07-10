@@ -12,8 +12,6 @@ public class GameMenuPauseScript : MonoBehaviour
         menuObject.SetActive(false);
     }
 
-
-
     void Update()
     {
         if(menuObject.activeInHierarchy){

@@ -16,8 +16,5 @@ public class LoadSceneManager : MonoBehaviour
         }
         else SceneManager.LoadScene(2);
 
-
-
-
     }
 }
