@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadSceneManager : MonoBehaviour
 {
+	
 	public void ChangeScene()
 	{
 		int currentIndex = SceneManager.GetActiveScene().buildIndex;
@@ -17,4 +15,9 @@ public class LoadSceneManager : MonoBehaviour
         else SceneManager.LoadScene(2);
 
     }
+public	void BackHome(string a)
+	{
+		SceneManager.LoadScene(a);
+
+	}
 }
