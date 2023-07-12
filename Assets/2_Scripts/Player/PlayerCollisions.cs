@@ -24,6 +24,7 @@ public class PlayerCollisions : MonoBehaviour
     {
         CoinText = GameObject.Find("CoinText").GetComponent<Text>();
         //PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("Coin", 1000);
         Debug.Log("Coinplayerprefz" + PlayerPrefs.GetInt("Coin"));
         playerPos = GameObject.FindGameObjectWithTag("Player");
         gateBool = false;
